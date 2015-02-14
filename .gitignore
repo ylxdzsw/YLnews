@@ -1,0 +1,9 @@
+*~
+~*
+*.log
+*.bak
+platforms/
+plugins/
+www/*.js
+www/*.css
+www/*.html
