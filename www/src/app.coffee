@@ -13,3 +13,8 @@
 
 @app.run = ->
 
+@app.onFetcherReady = @util.event()
+
+@app.onFetcherReady.add ->
+	@fetcher[0] (err,news) ->
+		$('#main-news-list').text JSON.stringify news,null,'\t'

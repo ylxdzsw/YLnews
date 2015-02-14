@@ -14,5 +14,4 @@
 			source: 'rednet'
 		callback null,news
 
-@fetcher[0] (err,news) ->
-	$("#main-news-list>p").text JSON.stringify(news,null,'\t')
+@app.onFetcherReady.trigger()
