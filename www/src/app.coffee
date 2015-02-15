@@ -1,7 +1,7 @@
 @app = 
 	initialize: -> @bindEvents()
 	bindEvents: -> document.addEventListener 'deviceready', @onDeviceReady, false
-	onDeviceReady: -> app.receivedEvent 'deviceready'
+	onDeviceReady: -> @app.receivedEvent 'deviceready'
 	receivedEvent: (id) ->
 		parentElement = document.getElementById id
 		listeningElement = parentElement.querySelector '.listening'
@@ -17,4 +17,4 @@
 
 @app.onFetcherReady.add ->
 	@fetcher[0] (err,news) ->
-		$('#main-news-list').text JSON.stringify news,null,'\t'
+		@view.updateNewsList news
