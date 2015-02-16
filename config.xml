@@ -8,6 +8,6 @@
         ylxdzsw
     </author>
     <content src="main.html" />
-    <icon src="www/assets/logo.png" />
+    <icon src="res/icon/icon.png" />
     <access origin="*" />
 </widget>
