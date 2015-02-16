@@ -14,6 +14,7 @@
 @app.run = ->
 
 @app.onFetcherReady = @util.event()
+@app.onExtractorReady = @util.event()
 
 @app.onFetcherReady.add ->
 	@fetcher[0] (err,news) ->

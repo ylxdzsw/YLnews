@@ -10,6 +10,6 @@
 	assert: (exp, msg) ->
 		if not exp
 			a = "Assert failed"
-			a = JSON.stringify msg,null,'  ' if msg
+			a = JSON.stringify msg,null,'  ' if msg?
 			alert a
 			throw a

@@ -14,6 +14,7 @@ html
 		script(src="app.js")
 		script(src="datamanager.js")
 		script(src="fetcher.js")
+		script(src="extractor.js")
 		script(src="main.js")
 		title YLnews
 	body
@@ -25,12 +26,13 @@ html
 			#footer-news-list(data-role='footer')
 				h4 fooer goes here
 		#page-news-detail(data-role='page')
-			#header-news-list(data-role='header')
+			#header-news-detail(data-role='header')
 				h1 fuck
-			#main-news-list.ui-content(role='main')
-				p
-					a(href='#page-news-list') shit
-			#footer-news-list(data-role='footer')
+			#main-news-detail.ui-content(role='main')
+				h2#title-news-detail
+				p#info-news-detail
+				div#context-news-detail
+			#footer-news-detail(data-role='footer')
 				h4 fuck
 		script(src="cordova.js")
 		script.
