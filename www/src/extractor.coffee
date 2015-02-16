@@ -10,4 +10,4 @@
 			context: $('table:nth-child(4)>tbody:nth-child(1)>tr:nth-child(1)>td:nth-child(1)>div:nth-child(1)',content)[0].innerHTML
 		callback null,news
 
-@app.onExtractorReady.trigger()
+do @app.onExtractorReady.trigger

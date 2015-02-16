@@ -6,7 +6,7 @@
 		news = for i in $('#ec_table>tbody>tr', data)
 			a = $('a',i)
 			link: baseURL + a.attr('href')
-			title: a.text()
+			title: do a.text
 			date: do ->
 				temp = $('td',i)[2].textContent.split('-').map (x)-> parseInt x # I dont know why but here we must use '(x)->parseInt x' rather than just using 'parseInt'
 				temp = new Date(temp[0],temp[1]-1,temp[2]+1)
@@ -14,4 +14,4 @@
 			source: 'rednet'
 		callback null,news
 
-@app.onFetcherReady.trigger()
+do @app.onFetcherReady.trigger

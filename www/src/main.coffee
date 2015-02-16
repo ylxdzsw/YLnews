@@ -14,8 +14,6 @@
 	viewArea.listview 'refresh'
 
 @view.updateNewsDetail = (news) =>
-	$ "#header-news-detail>h1"
-		.text news.context == null
 	$ "#title-news-detail"
 		.text news.title
 	$ "#info-news-detail"
