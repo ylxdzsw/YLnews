@@ -3,12 +3,8 @@
 $ => document.addEventListener "deviceready", => do @app.run
 
 @app.run = =>
-	do @app.fetchAll
+	do @fetcher.fetchAll
 
 @app.onFetcherReady = do @util.event
 @app.onExtractorReady = do @util.event
-
-@app.fetchAll = =>
-	@fetcher[0] (err,news) =>
-		@view.updateNewsList news
-
+@app.onDatabaseReady = do @util.event
