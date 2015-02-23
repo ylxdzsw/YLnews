@@ -5,6 +5,6 @@ $ => document.addEventListener "deviceready", => do @app.run
 @app.run = =>
 	do @fetcher.fetchAll
 
-@app.onFetcherReady = do @util.event
-@app.onExtractorReady = do @util.event
-@app.onDatabaseReady = do @util.event
+@app.onFetcherReady = do @util.oneTimeEvent
+@app.onExtractorReady = do @util.oneTimeEvent
+@app.onDatabaseReady = do @util.oneTimeEvent

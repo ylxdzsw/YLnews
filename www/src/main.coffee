@@ -6,7 +6,9 @@
 	newsListElements = for i in news
 		$('<li></li>')
 			.append $('<a href="#page-news-detail"></a>').text(i.title)
+			.attr 'data-icon', if i.isRead then 'check' else 'carat-r'
 			.click do (i) -> =>
+				@data.markAsRead i.link, -> alert 1
 				@extractor[i.source] i.link, (err,doc) ->
 					viewer doc
 	viewArea.append newsListElements

@@ -17,7 +17,6 @@
 @fetcher.fetchAll = =>
 	@fetcher[0] (err,news) =>
 		@data.putNewsList news, (err,links) =>
-			@navigator.notification.alert 'what the fuck'
 			@data.getNewsList (err,doc) =>
 				@view.updateNewsList doc
 
