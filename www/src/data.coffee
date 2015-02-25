@@ -11,10 +11,12 @@
 		baseURL: i.baseURL
 		isRead: no
 	db.add 'list', data
-		.done (links) ->
-			callback null, links
-		.fail (e) ->
-			callback e
+		.done (links) =>
+			do @app.onListStoreUpdated.trigger
+			callback null, links if callback
+		.fail (e) =>
+			do @app.onListStoreUpdated.trigger
+			callback e if callback
 
 @data.getNewsList = (callback) =>
 	db.values 'list'
@@ -25,8 +27,8 @@
 
 @data.markAsRead = (link, callback) =>
 	db.from('list','=',link).patch 'isRead', yes
-		.done -> callback null
-		.fail (e) -> callback e
+		.done -> callback null if callback
+		.fail (e) -> callback e if callback
 
 db = do ->
 	name = 'YLnews'

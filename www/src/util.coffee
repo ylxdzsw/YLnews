@@ -3,7 +3,7 @@
 		_ = []
 		add: (func) ->
 			_.push func
-		trigger: (arg) ->
+		trigger: (arg) -> #Warning: any event handler should not change the arguments passed, because the order that event handlers triggered is not garanteed, so that modifing arguments will make influence to following event handlers
 			i arg for i in _
 		destroy: ->
 			_ = []

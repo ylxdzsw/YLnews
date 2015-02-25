@@ -14,10 +14,20 @@
 			baseURL: baseURL
 		callback null,news
 
-@fetcher.fetchAll = =>
-	@fetcher[0] (err,news) =>
-		@data.putNewsList news, (err,links) =>
-			@data.getNewsList (err,doc) =>
-				@view.updateNewsList doc
+@fetcher.fetchAll = (callback) =>
+	count = 0
+	allNews = []
+	for i in @fetcher
+		count += 1
+		i (err,news) =>
+			count -= 1
+			allNews.push news
+			return if count isnt 0
+			newsArray = allNews.reduce (a,b)->a.concat b
+			@data.putNewsList newsArray, ->
+			@app.onFetched.trigger newsArray
+			callback err,newsArray if callback
+
+@app.onTick.add @fetcher.fetchAll
 
 do @app.onFetcherReady.trigger
