@@ -51,6 +51,10 @@
 			do @app.onListStoreUpdated.trigger
 			callback e if callback
 
+@data.clearCache = (callback)=>
+	db.clear 'detail'
+		.done callback
+
 @app.onExtracted.add (news) =>
 	@data.putNewsDetail news, ->
 

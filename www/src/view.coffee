@@ -5,7 +5,7 @@
 		@util.assert viewArea = $ "#listview-news-list"
 		newsListElements = for i in news
 			$('<li></li>')
-				.append $('<a href="#page-news-detail"></a>').text(i.title)
+				.append $('<a href="#page-news-detail"></a>').text(i.title).attr('data-transition','slide')
 				.attr 'data-icon', if i.isRead then 'check' else 'carat-r'
 				.click do (i) -> =>
 					@data.markAsRead i.link, ->

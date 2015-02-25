@@ -30,20 +30,34 @@ html
 				h4 加载更多...
 			#panel-news-list(data-role='panel',data-position-fixed='true',data-theme='b')
 				.panel-content
-					h3 炎陵新闻
+					h3.text-center 炎陵新闻
 					hr
-					a(href="javascript:void(0)",data-role='button',data-icon='gear') 清空数据库
+					a#menu-clear-cache-news-list(href="javascript:void(0)",data-role='button',data-icon='gear',data-iconpos='left') 清空缓存
+					a#menu-about-news-list(href="#pop-up-about-news-list",data-role='button',data-icon='info',data-iconpos='left',data-rel='popup',data-transition='pop',data-position-to='window') 关于
+					#pop-up-about-news-list(data-role='popup',data-theme='b')
+						h3 炎陵新闻
+						hr
+						p 张实唯 ylxdzsw@gmail.com
+						p Copyright © 2015 All rights reserved.
+						a#button-confirm-pop-up-about-news-list(href="javascript:void(0)",data-role='button',data-icon='back',data-iconpos='left',data-direction='reverse',data-rel='back') 返回
+						a.ui-btn-right(href="javascript:void(0)",data-role='button',data-rel='back',data-icon='delete',data-iconpos='notext') Close
 		#page-news-detail(data-role='page')
 			#header-news-detail(data-role='header',data-position='fixed')
-				h1 fuck
+				a.ui-btn-left.custom-border-radius(href="javascript:void(0)",data-role='button',data-icon='arrow-l',data-iconpos='notext',data-direction='reverse',data-rel='back') Back
+				h1 炎陵新闻
+				a.ui-btn-right.custom-border-radius(href="#pop-up-menu-news-detail",data-role='button',data-icon='bars',data-iconpos='notext',data-rel='popup') Menu
+				#pop-up-menu-news-detail(data-role='popup',data-theme='b')
+					ul#menu-list-news-detail(data-role='listview',data-inset='true')
+						li#menu-setting-news-detail(data-icon='gear',data-iconpos='left')
+							a(href="javascript:void(0)") Setting
+						li#menu-share-news-detail(data-icon='action',data-iconpos='left')
+							a(href="javascript:void(0)") Share
 			#main-news-detail.ui-content(role='main')
 				h2#title-news-detail
 				p#info-news-detail
 				div#context-news-detail
 			#footer-news-detail(data-role='footer')
-				h4
-					| 回到顶部
-					span(data-icon="arrow-u")
+				h5 回到顶部
 		script(src="cordova.js")
 		script(src="cordova_plugins.js")
 		//script(src="http://192.168.1.99:8080/target/target-script-min.js#YLnews")
