@@ -44,8 +44,12 @@
 
 @data.markAsRead = (link, callback) =>
 	db.from('list','=',link).patch 'isRead', yes
-		.done -> callback null if callback
-		.fail (e) -> callback e if callback
+		.done =>
+			do @app.onListStoreUpdated.trigger
+			callback null if callback
+		.fail (e) =>
+			do @app.onListStoreUpdated.trigger
+			callback e if callback
 
 @app.onExtracted.add (news) =>
 	@data.putNewsDetail news, ->

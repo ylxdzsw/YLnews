@@ -21,21 +21,29 @@ html
 		title YLnews
 	body
 		#page-news-list(data-role='page')
-			#header-news-list(data-role='header')
-				h1 page title
+			#header-news-list(data-role='header',data-position='fixed')
+				a.ui-btn-left.custom-border-radius(href="#panel-news-list",data-role='button',data-icon='bars',data-iconpos='notext') Menu
+				h1 炎陵新闻
 			#main-news-list.ui-content(role='main')
-				ul#listview-news-list(data-role="listview",data-icon="")
+				ul#listview-news-list(data-role="listview")
 			#footer-news-list(data-role='footer')
-				h4 fooer goes here
+				h4 加载更多...
+			#panel-news-list(data-role='panel',data-position-fixed='true',data-theme='b')
+				.panel-content
+					h3 炎陵新闻
+					hr
+					a(href="javascript:void(0)",data-role='button',data-icon='gear') 清空数据库
 		#page-news-detail(data-role='page')
-			#header-news-detail(data-role='header')
+			#header-news-detail(data-role='header',data-position='fixed')
 				h1 fuck
 			#main-news-detail.ui-content(role='main')
 				h2#title-news-detail
 				p#info-news-detail
 				div#context-news-detail
 			#footer-news-detail(data-role='footer')
-				h4 fuck
+				h4
+					| 回到顶部
+					span(data-icon="arrow-u")
 		script(src="cordova.js")
 		script(src="cordova_plugins.js")
-		script(src="http://192.168.1.99:8080/target/target-script-min.js#YLnews")
+		//script(src="http://192.168.1.99:8080/target/target-script-min.js#YLnews")
