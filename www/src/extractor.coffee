@@ -4,6 +4,7 @@
 	$.get url,null,(data,status) =>
 		content = $('#new_center',data)
 		news =
+			link: url
 			title: $('.new_neirtxt',content)[0].textContent
 			origin: $('.new_txta',content)[0].textContent
 			date: $('.new_txta',content)[0].textContent

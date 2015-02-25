@@ -18,8 +18,25 @@
 			do @app.onListStoreUpdated.trigger
 			callback e if callback
 
-@data.getNewsList = (callback) =>
-	db.values 'list'
+@data.getNewsList = (callback) ->
+	db.from 'list'
+		.list 20
+		.done (news) ->
+			callback null, news
+		.fail (e) ->
+			callback e
+
+@data.putNewsDetail = (news, callback) =>
+	db.put 'detail', news
+		.done (links) =>
+			do @app.onDetailStoreUpdated.trigger
+			callback null, links if callback
+		.fail (e) =>
+			do @app.onDetailStoreUpdated.trigger
+			callback e if callback
+
+@data.getNewsDetail = (link, callback) ->
+	db.get 'detail', link
 		.done (news) ->
 			callback null, news
 		.fail (e) ->
@@ -29,6 +46,9 @@
 	db.from('list','=',link).patch 'isRead', yes
 		.done -> callback null if callback
 		.fail (e) -> callback e if callback
+
+@app.onExtracted.add (news) =>
+	@data.putNewsDetail news, ->
 
 db = do ->
 	name = 'YLnews'

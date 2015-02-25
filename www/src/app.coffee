@@ -6,7 +6,7 @@
 $ => document.addEventListener "deviceready", => do @app.run
 
 @app.run = =>
-	@view.updateNewsList
+	do @view.updateNewsList
 	do -> # don't "optimize" this function, unless you noticed the 'arguments.callee'
 		do @app.onTick.trigger if @app.option.ticking
 		setTimeOut arguments.callee, 30000 # 30s

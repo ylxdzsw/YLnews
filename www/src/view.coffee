@@ -9,8 +9,13 @@
 				.attr 'data-icon', if i.isRead then 'check' else 'carat-r'
 				.click do (i) -> =>
 					@data.markAsRead i.link, ->
-					@extractor[i.source] i.link, (err,doc) =>
-						@view.updateNewsDetail doc
+					@data.getNewsDetail i.link, (err,doc) =>
+						if doc
+							@view.updateNewsDetail doc
+						else						
+							@extractor[i.source] i.link, (err,doc) =>
+								@view.updateNewsDetail doc
+		viewArea.html ''
 		viewArea.append newsListElements
 		viewArea.listview 'refresh'
 
@@ -31,4 +36,3 @@
 	
 @app.onListStoreUpdated.add =>
 	do @view.updateNewsList
-
