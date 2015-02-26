@@ -2,6 +2,7 @@
 
 @view.updateNewsList = =>
 	@data.getNewsList (err,news) =>
+		return if not news.length
 		@util.assert viewArea = $ "#listview-news-list"
 		newsListElements = for i in news
 			$('<li></li>')

@@ -1,7 +1,6 @@
 @data = {}
 
 @data.putNewsList = (news, callback) =>
-	@util.assert db
 	news = [news] if not news.map
 	data = for i in news
 		link: i.link
@@ -61,7 +60,7 @@
 db = do ->
 	name = 'YLnews'
 	option = 
-		mechanisms: ['indexeddb','websql']
+		mechanisms: ['websql','indexeddb','memory']
 	schema =
 		stores: [
 			name: 'list'
@@ -74,6 +73,8 @@ db = do ->
 
 db.onReady (e) =>
 	throw e if e?
-	do @app.onDatabaseReady.trigger
+	do @app.onDatabaseConnected.trigger
 
 @data.db = db
+
+do @app.onDatabaseReady.trigger
