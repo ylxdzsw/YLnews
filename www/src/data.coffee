@@ -41,6 +41,23 @@
 		.fail (e) ->
 			callback e
 
+@data.saveOption = (callback) =>
+	doc = {}
+	doc[k] = do v.get for k, v of @app.option
+	db.put 'option', doc, 'theOnlyKey'
+		.done ->
+			callback null if callback
+		.fail (e) ->
+			callback e if callback
+
+@data.loadOption = (callback) =>
+	db.get 'option', 'theOnlyKey'
+		.done (doc) =>
+			@app.option[k].set v for k, v of doc when @app.option[k]?
+			callback null if callback
+		.fail (e) =>
+			callback e if callback
+
 @data.markAsRead = (link, callback) =>
 	db.from('list','=',link).patch 'isRead', yes
 		.done =>
@@ -50,7 +67,7 @@
 			do @app.onListStoreUpdated.trigger
 			callback e if callback
 
-@data.clearCache = (callback)=>
+@data.clearCache = (callback) =>
 	db.clear 'detail'
 		.done callback
 
@@ -68,6 +85,8 @@ db = do ->
 		,
 			name: 'detail'
 			keyPath: 'link'
+		,
+			name: 'option'
 		]
 	new ydn.db.Storage name, schema, option
 

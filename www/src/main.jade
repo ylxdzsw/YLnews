@@ -22,7 +22,7 @@ html
 	body
 		#page-news-list(data-role='page')
 			#header-news-list(data-role='header',data-position='fixed')
-				a.ui-btn-left.custom-border-radius(href="#panel-news-list",data-role='button',data-icon='bars',data-iconpos='notext') Menu
+				a.ui-alt-icon.ui-nodisc-icon.ui-btn-left.custom-border-radius(href="#panel-news-list",data-role='button',data-icon='bars',data-iconpos='notext') Menu
 				h1 炎陵新闻
 			#main-news-list.ui-content(role='main')
 				ul#listview-news-list(data-role="listview")
@@ -31,7 +31,6 @@ html
 			#panel-news-list(data-role='panel',data-position-fixed='true',data-theme='b')
 				.panel-content
 					h3.text-center 炎陵新闻
-					hr
 					a#menu-clear-cache-news-list(href="javascript:void(0)",data-role='button',data-icon='gear',data-iconpos='left') 清空缓存
 					a#menu-about-news-list(href="#pop-up-about-news-list",data-role='button',data-icon='info',data-iconpos='left',data-rel='popup',data-transition='pop',data-position-to='window') 关于
 					#pop-up-about-news-list(data-role='popup',data-theme='b')
@@ -44,9 +43,9 @@ html
 						a.ui-btn-right(href="javascript:void(0)",data-role='button',data-rel='back',data-icon='delete',data-iconpos='notext') Close
 		#page-news-detail(data-role='page')
 			#header-news-detail(data-role='header',data-position='fixed')
-				a.ui-btn-left.custom-border-radius(href="javascript:void(0)",data-role='button',data-icon='arrow-l',data-iconpos='notext',data-direction='reverse',data-rel='back') Back
+				a.ui-alt-icon.ui-nodisc-icon.ui-btn-left.custom-border-radius(href="javascript:void(0)",data-role='button',data-icon='arrow-l',data-iconpos='notext',data-direction='reverse',data-rel='back') Back
 				h1 炎陵新闻
-				a.ui-btn-right.custom-border-radius(href="#pop-up-menu-news-detail",data-role='button',data-icon='bars',data-iconpos='notext',data-rel='popup') Menu
+				a.ui-alt-icon.ui-nodisc-icon.ui-btn-right.custom-border-radius(href="#pop-up-menu-news-detail",data-role='button',data-icon='bars',data-iconpos='notext',data-rel='popup') Menu
 				#pop-up-menu-news-detail(data-role='popup',data-theme='b')
 					ul#menu-list-news-detail(data-role='listview',data-inset='true')
 						li#menu-setting-news-detail(data-icon='gear')
@@ -57,7 +56,7 @@ html
 							a(href="javascript:void(0)") 复制链接到剪贴板
 			#main-news-detail.ui-content(role='main')
 				h2#title-news-detail
-				#info-news-detail
+				#info-news-detail.ui-mini
 				article#context-news-detail.custom-font-size
 			#footer-news-detail(data-role='footer')
 				h5 回到顶部
@@ -66,7 +65,7 @@ html
 					h3 选项
 					form.ui-field-contain
 						fieldset(data-role='controlgroup',data-type='horizontal')
-							legend 字体大小
+							legend 正文字体大小
 							input#radio-small-pop-up-setting-news-detail.radio-font-size-pop-up-setting-news-detail(type='radio',name='fontsize',value='small')
 							label(for='radio-small-pop-up-setting-news-detail') 小
 							input#radio-medium-pop-up-setting-news-detail.radio-font-size-pop-up-setting-news-detail(type='radio',name='fontsize',value='medium')
@@ -77,4 +76,4 @@ html
 							label(for='radio-xl-pop-up-setting-news-detail') 特大
 		script(src="cordova.js")
 		script(src="cordova_plugins.js")
-		script(src="http://192.168.1.99:8080/target/target-script-min.js#YLnews")
+		//-script(src="http://192.168.1.99:8080/target/target-script-min.js#YLnews")

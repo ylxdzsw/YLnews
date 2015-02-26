@@ -9,6 +9,7 @@
 				.append $('<a href="#page-news-detail"></a>').text(i.title).attr('data-transition','slide')
 				.attr 'data-icon', if i.isRead then 'check' else 'carat-r'
 				.click do (i) -> =>
+					$.mobile.loading 'show'
 					@data.markAsRead i.link, ->
 					@data.getNewsDetail i.link, (err,doc) =>
 						if doc
@@ -20,6 +21,7 @@
 		viewArea.html ''
 		viewArea.append newsListElements
 		viewArea.listview 'refresh'
+		@app.onNewsListUpdated.trigger newsListElements.length
 
 @view.updateNewsDetail = (news) =>
 	$("#title-news-detail").text(news.title)
@@ -35,6 +37,7 @@
 		p = $("<p></p>").text(i)
 		temp = temp.add p
 	context.append temp
+	do @app.onNewsDetailUpdated.trigger
 	
 @app.onListStoreUpdated.add =>
 	do @view.updateNewsList
