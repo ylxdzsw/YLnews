@@ -16,6 +16,7 @@
 						else						
 							@extractor[i.source] i.link, (err,doc) =>
 								@view.updateNewsDetail doc
+					@app.state.detailURL = i.link
 		viewArea.html ''
 		viewArea.append newsListElements
 		viewArea.listview 'refresh'
@@ -25,7 +26,7 @@
 	$("#info-news-detail").text(news.origin)
 	context = $("#context-news-detail")
 	context.html('')
-	temp = $()
+	temp = do $
 	if news.context.img.length isnt 0
 		for i in news.context.img
 			pic = $("<p></p>").append($("<img></img>").attr('src',i))
@@ -37,3 +38,6 @@
 	
 @app.onListStoreUpdated.add =>
 	do @view.updateNewsList
+
+@app.option.detailFontSize.onChange.add (arg) ->
+	$("#context-news-detail").removeClass(arg.from).addClass(arg.to)

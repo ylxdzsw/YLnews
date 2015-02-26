@@ -1,7 +1,10 @@
 @app = {}
 
 @app.option =
-	ticking: on
+	ticking: @util.property on
+	detailFontSize: @util.property 'medium'
+
+@app.state = {}
 
 $ => document.addEventListener "deviceready", => @app.onDatabaseConnected.add => do @app.run
 
@@ -14,8 +17,7 @@ $ => document.addEventListener "deviceready", => @app.onDatabaseConnected.add =>
 @app.checkNetworkState = =>
 	networkState = @navigator.connection.type
 	if networkState in [Connection.NONE,Connection.UNKNOWN]
-		alert '网络连接失败'
-
+		@plugins.toast.showLongBottom "网络连接失败，显示缓存页面"
 
 @app.onTick = do @util.event
 

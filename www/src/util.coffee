@@ -20,6 +20,16 @@
 				i arg for i in _
 				done = yes
 				_ = arg
+	property: (initValue) ->
+		_ = initValue
+		set: (value) ->
+			temp = _
+			_ = value
+			@onChange.trigger 
+				from: temp
+				to: value
+		get: -> _
+		onChange: do @event
 	assert: (exp, msg) ->
 		if not exp
 			a = "Assert failed"

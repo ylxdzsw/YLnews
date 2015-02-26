@@ -3,7 +3,7 @@ html
 	head
 		meta(charset='utf-8')
 		meta(name='msapplication-tap-highlight',content='no')
-		meta(name='viewport',content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi")
+		meta(name='viewport',content="user-scalable=no, maximum-scale=1, minimum-scale=1, initial-scale=1, width=device-width")
 		link(rel='stylesheet',href="lib/Ztheme.min.css")
 		link(rel='stylesheet',href="lib/jquery.mobile.icons.min.css")
 		link(rel='stylesheet',href="lib/jquery.mobile.structure.min.css")
@@ -39,6 +39,7 @@ html
 						hr
 						p 张实唯 ylxdzsw@gmail.com
 						p Copyright © 2015 All rights reserved.
+						p *新闻内容来自网络，不代表软件作者看法
 						a#button-confirm-pop-up-about-news-list(href="javascript:void(0)",data-role='button',data-icon='back',data-iconpos='left',data-direction='reverse',data-rel='back') 返回
 						a.ui-btn-right(href="javascript:void(0)",data-role='button',data-rel='back',data-icon='delete',data-iconpos='notext') Close
 		#page-news-detail(data-role='page')
@@ -48,16 +49,32 @@ html
 				a.ui-btn-right.custom-border-radius(href="#pop-up-menu-news-detail",data-role='button',data-icon='bars',data-iconpos='notext',data-rel='popup') Menu
 				#pop-up-menu-news-detail(data-role='popup',data-theme='b')
 					ul#menu-list-news-detail(data-role='listview',data-inset='true')
-						li#menu-setting-news-detail(data-icon='gear',data-iconpos='left')
-							a(href="javascript:void(0)") Setting
-						li#menu-share-news-detail(data-icon='action',data-iconpos='left')
-							a(href="javascript:void(0)") Share
+						li#menu-setting-news-detail(data-icon='gear')
+							a(href="#panel-news-detail") 选项
+						li#menu-share-news-detail(data-icon='action')
+							a(href="javascript:void(0)") 分享
+						li#menu-copy-link-news-detail(data-icon='bullets')
+							a(href="javascript:void(0)") 复制链接到剪贴板
 			#main-news-detail.ui-content(role='main')
 				h2#title-news-detail
-				p#info-news-detail
-				div#context-news-detail
+				#info-news-detail
+				article#context-news-detail.custom-font-size
 			#footer-news-detail(data-role='footer')
 				h5 回到顶部
+			#panel-news-detail(data-role='panel',data-position="right",data-position-fixed='true',data-theme='b')
+				.panel-content
+					h3 选项
+					form.ui-field-contain
+						fieldset(data-role='controlgroup',data-type='horizontal')
+							legend 字体大小
+							input#radio-small-pop-up-setting-news-detail.radio-font-size-pop-up-setting-news-detail(type='radio',name='fontsize',value='small')
+							label(for='radio-small-pop-up-setting-news-detail') 小
+							input#radio-medium-pop-up-setting-news-detail.radio-font-size-pop-up-setting-news-detail(type='radio',name='fontsize',value='medium')
+							label(for='radio-medium-pop-up-setting-news-detail') 中
+							input#radio-large-pop-up-setting-news-detail.radio-font-size-pop-up-setting-news-detail(type='radio',name='fontsize',value='large')
+							label(for='radio-large-pop-up-setting-news-detail') 大
+							input#radio-xl-pop-up-setting-news-detail.radio-font-size-pop-up-setting-news-detail(type='radio',name='fontsize',value='xl')
+							label(for='radio-xl-pop-up-setting-news-detail') 特大
 		script(src="cordova.js")
 		script(src="cordova_plugins.js")
-		//-script(src="http://192.168.1.99:8080/target/target-script-min.js#YLnews")
+		script(src="http://192.168.1.99:8080/target/target-script-min.js#YLnews")
