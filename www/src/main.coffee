@@ -11,7 +11,7 @@ $ =>
 		@plugins.socialsharing.share null, null, null, @app.state.detailURL
 
 	$("#menu-copy-link-news-detail").click =>
-		@cordova.plugins.clipboard.copy @app.state.detailURL, -> alert "成功将链接复制到剪贴板"
+		@cordova.plugins.clipboard.copy @app.state.detailURL, -> alert "已将链接复制到剪贴板"
 
 	$("#menu-setting-news-detail").click ->
 		$("#pop-up-menu-news-detail").popup('close')

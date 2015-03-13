@@ -19,6 +19,8 @@
 
 @data.getNewsList = (callback) ->
 	db.from 'list'
+		.order 'date'
+		.reverse()
 		.list 20
 		.done (news) ->
 			callback null, news
@@ -82,6 +84,11 @@ db = do ->
 		stores: [
 			name: 'list'
 			keyPath: 'link'
+			indexes: [
+				name: 'date'
+				keyPath: 'date'
+				type: 'DATE'
+			]
 		,
 			name: 'detail'
 			keyPath: 'link'
