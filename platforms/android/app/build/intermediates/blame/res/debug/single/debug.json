@@ -8,10 +8,6 @@
         "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\drawable-port-hdpi\\screen.png"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_icon.png.flat",
-        "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\icon.png"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\xml_config.xml.flat",
         "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\xml\\config.xml"
     },
@@ -36,14 +32,6 @@
         "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\drawable-land-ldpi\\screen.png"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-ldpi_icon.png.flat",
-        "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\mipmap-ldpi\\icon.png"
-    },
-    {
-        "merged": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_icon.png.flat",
-        "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\icon.png"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-port-xhdpi_screen.png.flat",
         "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\drawable-port-xhdpi\\screen.png"
     },
@@ -60,19 +48,11 @@
         "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\mipmap-mdpi\\icon.png"
     },
     {
-        "merged": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi_icon.png.flat",
-        "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\mipmap-hdpi\\icon.png"
-    },
-    {
         "merged": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-xhdpi_screen.png.flat",
         "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\drawable-land-xhdpi\\screen.png"
     },
     {
         "merged": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\drawable-land-xxhdpi_screen.png.flat",
         "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\drawable-land-xxhdpi\\screen.png"
-    },
-    {
-        "merged": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_icon.png.flat",
-        "source": "C:\\Users\\Administrator\\Desktop\\YLnews\\platforms\\android\\app\\src\\main\\res\\mipmap-xhdpi\\icon.png"
     }
 ]

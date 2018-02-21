@@ -9,19 +9,19 @@ INJECTED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\ma
 INJECTED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
 INJECTED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
 	package
-		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:102-133
+		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:100-128
 		INJECTED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml
 	android:versionName
-		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:74-101
+		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:72-99
 		INJECTED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml
 	android:hardwareAccelerated
 		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:11-45
 	xmlns:android
-		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:134-192
+		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:129-187
 	android:versionCode
-		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:46-73
+		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:2:46-71
 		INJECTED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml
 supports-screens
@@ -52,7 +52,7 @@ ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\
 		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:5:18-52
 	android:icon
 		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:5:53-80
-activity#io.cordova.helloworld.MainActivity
+activity#com.ylxdzsw.YLnews.MainActivity
 ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:6:9-11:20
 	android:label
 		ADDED from C:\Users\Administrator\Desktop\YLnews\platforms\android\app\src\main\AndroidManifest.xml:6:97-134

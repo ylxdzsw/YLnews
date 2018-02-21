@@ -10,7 +10,7 @@
     </v-ons-toolbar>
 
     <v-ons-pull-hook
-      :action="fetchNewsList"
+      :action="update_news"
       @changestate="pullState = $event.state"
     >
       <span v-show="pullState === 'initial'"> 下拉刷新 </span>
@@ -36,13 +36,10 @@ export default {
     }
   },
   methods: {
-    fetchNewsList(done) {
-      setTimeout(() => {
-        this.news.push({
-          title: 'fuck'
-        })
-        done()
-      }, 400)
+    update_news(done) {
+      scraper.fetchNewsList().then(x => {
+        this.news = x
+      }).then(done).catch(done)
     }
   }
 }

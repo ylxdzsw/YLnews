@@ -1,1 +1,1 @@
-[{"outputType":{"type":"INSTANT_RUN_MERGED_MANIFESTS"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":10000},"path":"AndroidManifest.xml","properties":{"packageId":"io.cordova.helloworld","split":"","minSdkVersion":"16"}}]
+[{"outputType":{"type":"INSTANT_RUN_MERGED_MANIFESTS"},"apkInfo":{"type":"MAIN","splits":[],"versionCode":200},"path":"AndroidManifest.xml","properties":{"packageId":"com.ylxdzsw.YLnews","split":"","minSdkVersion":"16"}}]

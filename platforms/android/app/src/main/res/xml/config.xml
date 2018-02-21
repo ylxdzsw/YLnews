@@ -1,24 +1,18 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.cordova.helloworld" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ylxdzsw.YLnews" version="0.2.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
-    <name>ylnews</name>
+    <name>炎陵新闻</name>
     <description>
-      Vue.js + Onsen UI + Cordova sample app
+        基于Cordova制作的新闻客户端，用于从网络上收集关于炎陵的新闻并以一种统一的形式呈现。
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-      Vue.js + Onsen UI + Cordova teams
+    <author email="root@ylxdzsw.com" href="https://blog.ylxdzsw.com">
+        ylxdzsw
     </author>
     <content src="index.html" />
+    <icon src="res/icon/icon.png" />
     <access origin="*" />
-    <allow-intent href="http://*/*" />
-    <allow-intent href="https://*/*" />
-    <allow-intent href="tel:*" />
-    <allow-intent href="sms:*" />
-    <allow-intent href="mailto:*" />
-    <allow-intent href="geo:*" />
-    <allow-intent href="market:*" />
     <preference name="loglevel" value="DEBUG" />
 </widget>
