@@ -16,9 +16,12 @@ export default {
   },
   methods: {
     openNews(news) {
+      if (!scraper.transable(news.url))
+        return window.open(news.url, '_blank')
+
       this.pageStack.push({
         ...NewsPage,
-        onsNavigatorProps: news
+        onsNavigatorProps: {news}
       })
     }
   }

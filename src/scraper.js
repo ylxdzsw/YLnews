@@ -56,8 +56,32 @@ function fetchNewsList() {
   return Promise.all([fetch_hnyanling()]).then(x=>result)
 }
 
+function fetchNewsDetail(url) {
+  async function fetch_hnyanling(url) {
+    const page = await fetch_page(url)
+    const bc = page.querySelector('div.b').children
 
+    return {
+      title: bc[0].textContent,
+      info: bc[1].children[0].textContent.trim(),
+      time: bc[1].children[1].textContent.split(/[:：]/).slice(1).join(":").trim(),
+      video: [].map.call(bc[2].querySelectorAll("video"), x=>"http://www.hnyanling.gov.cn"+x.getAttribute('src')),
+      image: [].map.call(bc[2].querySelectorAll("img"), x=>"http://www.hnyanling.gov.cn"+x.getAttribute('src')),
+      text: [].map.call(bc[2].querySelectorAll("p"), x=>x.textContent.trim()).filter(x=>x.length>1).slice(0, -1)
+    }
+  }
+
+  switch (false) {
+    case !url.startsWith("http://www.hnyanling.gov.cn"):
+      return fetch_hnyanling(url)
+    default:
+      // TODO: log
+      return null
+  }
+}
 
 window.scraper = {
-  fetchNewsList
+  transable,
+  fetchNewsList,
+  fetchNewsDetail
 }

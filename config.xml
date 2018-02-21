@@ -11,5 +11,7 @@
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <icon src="res/icon/icon.png" />
     <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
     <engine name="android" spec="^7.0.0" />
 </widget>

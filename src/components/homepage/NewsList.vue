@@ -1,6 +1,6 @@
 <template>
   <v-ons-page>
-    <v-ons-toolbar class="home-toolbar">
+    <v-ons-toolbar>
       <div class="left">
         <v-ons-toolbar-button @click="$emit('toggleSetting')">
           <v-ons-icon icon="ion-navicon, material:md-menu"></v-ons-icon>
@@ -19,8 +19,14 @@
     </v-ons-pull-hook>
 
     <v-ons-list>
-      <v-ons-list-item v-for="item in news" @click="$emit('open-news', item)" :key="item.link">
-        <div class="center">{{ item.title }}</div>
+      <v-ons-list-item modifier="chevron" tappable v-for="item in news" @click="$emit('open-news', item)" :key="item.url">
+        <div class="left" v-show="item.thumbnail != null">
+          <img class="list-item__thumbnail" :src="item.thumbnail"/>
+          </div>
+        <div class="center">
+          <span class="list-item__title"> {{ item.title }} </span>
+          <span class="list-item__subtitle"> {{ item.date }} </span>
+        </div>
       </v-ons-list-item>
     </v-ons-list>
   </v-ons-page>

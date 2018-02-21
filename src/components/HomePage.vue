@@ -6,7 +6,8 @@
       </v-ons-splitter-side>
 
       <v-ons-splitter-content>
-        <news-list @toggleSetting="sideMenuOpen = !sideMenuOpen" />
+        <news-list @toggle-setting="sideMenuOpen = !sideMenuOpen"
+                   @open-news="$emit('open-news', $event)" />
       </v-ons-splitter-content>
     </v-ons-splitter>
   </v-ons-page>
