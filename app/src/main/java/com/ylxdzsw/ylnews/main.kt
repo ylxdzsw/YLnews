@@ -1,6 +1,6 @@
 package com.ylxdzsw.ylnews
 
-import android.os.AsyncTask
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -17,9 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment
-import java.util.concurrent.Executors
-import java.util.concurrent.ThreadPoolExecutor
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 data class News(val url: String, val title: String, val date: String,
                 var thumb: String? = null, var content: String? = null) {
@@ -62,30 +61,48 @@ class YLNewsActivity : AppCompatActivity() {
 }
 
 class Home : Fragment() {
-    private lateinit var textView: TextView
+    private lateinit var newsListView: RecyclerView
 
-    private val newsList = HashSet<News>()
+    private val newsList = ArrayList<News>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        textView = root.findViewById(R.id.text_home)
-        textView.text = "shit"
 
-        for (source in Source.sources) {
-            doInBackground(this, { source.fetch() }, {
-                it?.forEach { newsList.add(it) }
-                render()
-            })
-        }
+        newsListView = root.findViewById(R.id.news_list)
+        newsListView.layoutManager = LinearLayoutManager(context)
+        newsListView.adapter = NewsListAdapter(context!!, newsList)
+
+        updateInBackground()
 
         return root
     }
 
-    private fun render() {
-        textView.text = newsList.joinToString("\n") { it.title }
+    private fun updateInBackground() {
+        // TODO: render at once
+        for (source in Source.sources) {
+            doInBackground(this, { source.fetch() }, {
+                it?.forEach { newsList.add(it) }
+                newsList.sortByDescending { it.date } // TODO: proper binary searched insertion
+                render()
+            })
+        }
+    }
+
+    private fun render() = newsListView.adapter!!.notifyDataSetChanged()
+}
+
+class NewsListAdapter(val context: Context, val data: List<News>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val v = LayoutInflater.from(context).inflate(R.layout.news_list_item, parent, false)
+        return object : RecyclerView.ViewHolder(v) {}
+    }
+
+    override fun getItemCount(): Int = data.size
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        // TODO: inherit ViewHolder and save those things in properties
+        val v: TextView = holder.itemView.findViewById(R.id.news_list_item_title)
+        v.text = data[position].title
+        v.setOnClickListener { v.text = position.toString() }
     }
 }
