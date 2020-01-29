@@ -2,44 +2,44 @@ package com.ylxdzsw.ylnews
 
 import android.content.Context
 import java.security.MessageDigest
-import java.time.Instant
 
-data class NewsInfo(val url: String, val title: String, val time: Long, val thumb: String)
-fun NewsInfo(url: String, title: String) = NewsInfo(url, title, Instant.now().epochSecond, "")
-
+// a simple text format for saving news. Files are named as the hex of md5 of the corresponding url of the news.
+// each file consists of either 3 or at least 4 lines, the first three lines are url, title and time
+// the fourth line is thumb, which could be empty. Starts from the fifth line is the parsed content
 class DataBase(val ctx: Context) {
     fun listInfo() = ctx.fileList().map { loadInfo(it) }.sortedByDescending { it.time }
 
-    fun saveInfo(news: NewsInfo) {
+    // save the url, title and time of a news
+    fun saveInfo(news: News) {
         ctx.openFileOutput(news.url.md5(), Context.MODE_PRIVATE).bufferedWriter().apply {
             write(news.url)
             newLine()
             write(news.title)
             newLine()
-            write(news.time.toString())
-            newLine()
-            write(news.thumb)
+            write(news.time)
             newLine()
         }.close()
     }
 
-    fun loadInfo(hash: String): NewsInfo {
+    // load the url, title and time of a news
+    fun loadInfo(hash: String): News {
         ctx.openFileInput(hash).bufferedReader().use {
             val url = it.readLine().trim()
             val title = it.readLine().trim()
-            val time = it.readLine().trim().toLong()
-            val thumb = it.readLine().trim()
-            return NewsInfo(url, title, time, thumb)
+            val time = it.readLine().trim()
+            return News(url, title, time, null, null)
         }
     }
 
-    fun saveDetail(news: NewsInfo, detail: String) {
+    // save the thumb (could be empty) and content of a news
+    fun saveDetail(news: News, detail: String) {
         ctx.openFileOutput(news.url.md5(), Context.MODE_APPEND).writer().use {
             it.write(detail)
         }
     }
 
-    fun loadDetail(news: NewsInfo): String {
+    // load the thumb (could be empty) and content of a news
+    fun loadDetail(news: News): String {
         ctx.openFileInput(news.url.md5()).bufferedReader().use {
             // discard the first 4 lines
             for (i in 0..3) {
@@ -49,12 +49,10 @@ class DataBase(val ctx: Context) {
         }
     }
 
-    fun vacuum() {
-        TODO()
-    }
-
-    fun clear() {
-        ctx.fileList().forEach { ctx.deleteFile(it) }
+    // remove news to keep only [n] latest
+    fun vacuum(n: Int) {
+        val latest = ctx.fileList().sortedByDescending { loadInfo(it).time }.take(n).toSet()
+        ctx.fileList().filter { it in latest }.forEach { ctx.deleteFile(it) }
     }
 }
 

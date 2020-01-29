@@ -2,8 +2,6 @@ package com.ylxdzsw.ylnews
 
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,17 +11,23 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
 
-class MainActivity : AppCompatActivity() {
+data class News(val url: String, val title: String, val time: String,
+                var thumb: String? = null, var content: String? = null) {
+    fun hasDetail(): Boolean = content != null
+}
+
+class YLNewsActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val news = NewsInfo("http://www.hnyanling.gov.cn/c14904/20200117/i1394187.html", "fuck")
+        val news = News("http://www.hnyanling.gov.cn/c14904/20200117/i1394187.html", "fuck", "today")
         val db = DataBase(applicationContext)
-        db.clear()
+        db.vacuum(0)
         db.saveInfo(news)
         val x = db.listInfo()[0].title
 
@@ -52,4 +56,8 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+}
+
+class Menu : Fragment() {
+
 }
