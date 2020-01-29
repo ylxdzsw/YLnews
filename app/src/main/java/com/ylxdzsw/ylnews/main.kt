@@ -18,6 +18,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import java.util.concurrent.Executors
+import java.util.concurrent.ThreadPoolExecutor
 
 data class News(val url: String, val title: String, val date: String,
                 var thumb: String? = null, var content: String? = null) {
@@ -61,6 +63,9 @@ class YLNewsActivity : AppCompatActivity() {
 
 class Home : Fragment() {
     private lateinit var textView: TextView
+
+    private val newsList = HashSet<News>()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -70,9 +75,17 @@ class Home : Fragment() {
         textView = root.findViewById(R.id.text_home)
         textView.text = "shit"
 
-        getFromAllSourceAsync(this) {
-            textView.text = it.joinToString("\n") { it.title }
+        for (source in Source.sources) {
+            doInBackground(this, { source.fetch() }, {
+                it?.forEach { newsList.add(it) }
+                render()
+            })
         }
+
         return root
+    }
+
+    private fun render() {
+        textView.text = newsList.joinToString("\n") { it.title }
     }
 }

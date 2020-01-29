@@ -1,8 +1,5 @@
 package com.ylxdzsw.ylnews
 
-import android.os.AsyncTask
-import java.lang.ref.WeakReference
-
 abstract class Source {
     companion object {
         val sources = arrayOf(
@@ -49,22 +46,4 @@ private fun fetchGovVideo(url: String): Iterable<News>? {
             thumb = it.selectFirst("img").attr("src").absoluteURL("http://www.hnyanling.gov.cn")
         )
     }
-}
-
-fun<T> getFromAllSourceAsync(receiver: T, callback: T.(Iterable<News>) -> Unit ) {
-    object : AsyncTask<String, Unit, Iterable<News>>() {
-        private val ref = WeakReference<T>(receiver)
-        override fun doInBackground(vararg params: String?): Iterable<News> {
-            val result = ArrayList<News>()
-            for (source in Source.sources) { // TODO: parallel
-                source.fetch()?.forEach { result.add(it) }
-            }
-            return result
-        }
-
-        override fun onPostExecute(result: Iterable<News>) {
-            super.onPostExecute(result)
-            ref.get()?.apply { callback(result) }
-        }
-    }.execute()
 }
