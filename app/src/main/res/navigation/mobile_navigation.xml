@@ -7,25 +7,21 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.ylxdzsw.ylnews.Home"
-        android:label="@string/menu_home"
+        android:name="com.ylxdzsw.ylnews.HomeFragment"
+        android:label="@string/home_fragment_name"
         tools:layout="@layout/fragment_home">
 
         <action
-            android:id="@+id/action_HomeFragment_to_HomeSecondFragment"
-            app:destination="@id/nav_home_second" />
+            android:id="@+id/action_show_detail"
+            app:destination="@id/nav_detail" />
     </fragment>
     <fragment
-        android:id="@+id/nav_home_second"
-        android:name="com.ylxdzsw.ylnews.ui.home.HomeSecondFragment"
-        android:label="@string/home_second"
-        tools:layout="@layout/fragment_home_second">
+        android:id="@+id/nav_detail"
+        android:name="com.ylxdzsw.ylnews.DetailFragment"
+        android:label="@string/detail_fragment_name"
+        tools:layout="@layout/fragment_detail">
         <action
-            android:id="@+id/action_HomeSecondFragment_to_HomeFragment"
+            android:id="@+id/action_back_to_home"
             app:destination="@id/nav_home" />
-
-        <argument
-            android:name="myArg"
-            app:argType="string" />
     </fragment>
 </navigation>

@@ -17,6 +17,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -60,7 +62,7 @@ class YLNewsActivity : AppCompatActivity() {
     }
 }
 
-class Home : Fragment() {
+class HomeFragment : Fragment() {
     private lateinit var newsListView: RecyclerView
 
     private val newsList = ArrayList<News>()
@@ -70,9 +72,27 @@ class Home : Fragment() {
 
         newsListView = root.findViewById(R.id.news_list)
         newsListView.layoutManager = LinearLayoutManager(context)
-        newsListView.adapter = NewsListAdapter(context!!, newsList)
+        newsListView.adapter = object : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+                val v = LayoutInflater.from(context).inflate(R.layout.news_list_item, parent, false)
+                return object : RecyclerView.ViewHolder(v) {}
+            }
 
-        updateInBackground()
+            override fun getItemCount(): Int = newsList.size
+
+            override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+                // TODO: inherit ViewHolder and save those things in properties?
+                val v: TextView = holder.itemView.findViewById(R.id.news_list_item_title)
+                v.text = newsList[position].title
+                holder.itemView.setOnClickListener {
+                    findNavController().navigate(R.id.action_show_detail)
+                }
+            }
+        }
+
+        if (newsList.isEmpty()) {
+            updateInBackground()
+        }
 
         return root
     }
@@ -80,8 +100,8 @@ class Home : Fragment() {
     private fun updateInBackground() {
         // TODO: render at once
         for (source in Source.sources) {
-            doInBackground(this, { source.fetch() }, {
-                it?.forEach { newsList.add(it) }
+            doInBackground(this, { source.fetch() }, { news ->
+                news?.forEach { newsList.add(it) }
                 newsList.sortByDescending { it.date } // TODO: proper binary searched insertion
                 render()
             })
@@ -91,18 +111,14 @@ class Home : Fragment() {
     private fun render() = newsListView.adapter!!.notifyDataSetChanged()
 }
 
-class NewsListAdapter(val context: Context, val data: List<News>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val v = LayoutInflater.from(context).inflate(R.layout.news_list_item, parent, false)
-        return object : RecyclerView.ViewHolder(v) {}
+class DetailFragment : Fragment() {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
-    override fun getItemCount(): Int = data.size
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        // TODO: inherit ViewHolder and save those things in properties
-        val v: TextView = holder.itemView.findViewById(R.id.news_list_item_title)
-        v.text = data[position].title
-        v.setOnClickListener { v.text = position.toString() }
+        view.findViewById<TextView>(R.id.textview_home_second).text = "fuck"
     }
 }
