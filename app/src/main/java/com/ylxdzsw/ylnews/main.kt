@@ -1,11 +1,15 @@
 package com.ylxdzsw.ylnews
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebResourceRequest
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -28,8 +32,9 @@ data class News(val url: String, val title: String, val date: String,
 }
 
 class YLNewsActivity : AppCompatActivity() {
-
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    var currentNews: News? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +72,11 @@ class HomeFragment : Fragment() {
 
     private val newsList = ArrayList<News>()
 
+    override fun onCreate(state: Bundle?) {
+        super.onCreate(state)
+        updateInBackground()
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
 
@@ -85,13 +95,10 @@ class HomeFragment : Fragment() {
                 val v: TextView = holder.itemView.findViewById(R.id.news_list_item_title)
                 v.text = newsList[position].title
                 holder.itemView.setOnClickListener {
+                    (activity as YLNewsActivity).currentNews = newsList[position]
                     findNavController().navigate(R.id.action_show_detail)
                 }
             }
-        }
-
-        if (newsList.isEmpty()) {
-            updateInBackground()
         }
 
         return root
@@ -112,13 +119,28 @@ class HomeFragment : Fragment() {
 }
 
 class DetailFragment : Fragment() {
+    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
-    }
+        val root = inflater.inflate(R.layout.fragment_detail, container, false)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val webView: WebView = root.findViewById(R.id.webview_detail)
+        webView.webViewClient = WebViewClient()
+        webView.settings.javaScriptEnabled = true
 
-        view.findViewById<TextView>(R.id.textview_home_second).text = "fuck"
+        val news = (activity as YLNewsActivity).currentNews!!
+
+        doInBackground(this, {
+            if (!news.hasDetail()) {
+                Parser.parsers.find { it.match(news.url) }?.parse(news)
+            }
+        }, {
+            if (news.hasDetail()) {
+                webView.loadData(news.content, "text/html", "utf8")
+            } else {
+                webView.loadUrl(news.url)
+            }
+        })
+
+        return root
     }
 }
