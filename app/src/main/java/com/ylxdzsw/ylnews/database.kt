@@ -4,8 +4,7 @@ import android.content.Context
 import java.security.MessageDigest
 
 // a simple text format for saving news. Files are named as the hex of md5 of the corresponding url of the news.
-// each file consists of either 3 or at least 4 lines, the first three lines are url, title and time
-// the fourth line is thumb, which could be empty. Starts from the fifth line is the parsed content
+// TODO: sucks, loading from local cache is NOT faster than loading from network. Need to investigate
 class DataBase(val ctx: Context) {
     fun listInfo() = ctx.fileList().map { loadInfo(it) }.sortedByDescending { it.date }
 
@@ -37,13 +36,16 @@ class DataBase(val ctx: Context) {
     }
 
     // load the content of a news
-    fun loadDetail(news: News): String? {
+    fun loadDetail(news: News) {
         ctx.openFileInput(news.url.md5()).bufferedReader().use {
             // discard the first 4 lines
             for (i in 0..3) {
                 it.readLine()
             }
-            return it.readText()
+            val content = it.readText()
+            if (content.isNotBlank()) {
+                news.content = content
+            }
         }
     }
 

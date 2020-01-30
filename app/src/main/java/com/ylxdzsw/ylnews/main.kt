@@ -1,15 +1,18 @@
 package com.ylxdzsw.ylnews
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -21,10 +24,10 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import java.net.URL
 
 data class News(val url: String, val title: String, val date: String,
                 var thumb: String? = null, var content: String? = null) {
@@ -32,12 +35,16 @@ data class News(val url: String, val title: String, val date: String,
 }
 
 class YLNewsActivity : AppCompatActivity() {
+    lateinit var newsCache: DataBase
+
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     var currentNews: News? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        newsCache = DataBase(applicationContext)
 
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -55,12 +62,6 @@ class YLNewsActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
@@ -71,6 +72,7 @@ class HomeFragment : Fragment() {
     private lateinit var newsListView: RecyclerView
 
     private val newsList = ArrayList<News>()
+    private val imageCache = HashMap<String, Bitmap>()
 
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
@@ -93,7 +95,32 @@ class HomeFragment : Fragment() {
             override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
                 // TODO: inherit ViewHolder and save those things in properties?
                 val v: TextView = holder.itemView.findViewById(R.id.news_list_item_title)
-                v.text = newsList[position].title
+                val news = newsList[position]
+                v.text = news.title
+
+                val imageView = holder.itemView.findViewById<ImageView>(R.id.news_list_item_thumb)
+                imageView.visibility = View.GONE
+
+                news.thumb?.let { url ->
+                    val bitmap = imageCache[url]
+                    if (bitmap != null) {
+                        imageView.setImageBitmap(bitmap)
+                        imageView.visibility = View.VISIBLE
+                    } else {
+                        doInBackground(this, {
+                            try {
+                                BitmapFactory.decodeStream(URL(news.thumb).openStream())
+                            } catch (e: Throwable) { null }
+                        }, {
+                            if (it != null) {
+                                imageCache[url] = it
+                                imageView.setImageBitmap(it)
+                                imageView.visibility = View.VISIBLE
+                            }
+                        })
+                    }
+                }
+
                 holder.itemView.setOnClickListener {
                     (activity as YLNewsActivity).currentNews = newsList[position]
                     findNavController().navigate(R.id.action_show_detail)
@@ -128,18 +155,33 @@ class DetailFragment : Fragment() {
         webView.settings.javaScriptEnabled = true
 
         val news = (activity as YLNewsActivity).currentNews!!
-
-        doInBackground(this, {
-            if (!news.hasDetail()) {
-                Parser.parsers.find { it.match(news.url) }?.parse(news)
-            }
-        }, {
+        // TODO: this bunch of code is ugly
+        if (news.hasDetail()) {
+            webView.loadData(news.content, "text/html", "utf8")
+        } else {
+            val newsCache = (activity as YLNewsActivity).newsCache
+            try {
+                newsCache.loadDetail(news)
+            } catch (e: Throwable) {}
             if (news.hasDetail()) {
                 webView.loadData(news.content, "text/html", "utf8")
             } else {
-                webView.loadUrl(news.url)
+                doInBackground(this, {
+                    Parser.parsers.find { it.match(news.url) }?.parse(news)
+                    if (news.hasDetail()) {// found
+                        newsCache.save(news)
+                    }
+                }, {
+                    if (news.hasDetail()) {
+                        webView.loadData(news.content, "text/html", "utf8")
+                    } else {
+                        webView.loadUrl(news.url)
+                    }
+                })
             }
-        })
+        }
+
+        (activity as YLNewsActivity).supportActionBar?.title = news.title
 
         return root
     }

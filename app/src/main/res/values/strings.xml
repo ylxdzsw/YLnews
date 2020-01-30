@@ -1,14 +1,7 @@
 <resources>
-    <string name="app_name">YLNews</string>
+    <string name="app_name">炎陵新闻</string>
     <string name="email">root@ylxdzsw.com</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_settings">Settings</string>
-
-    <string name="home_fragment_name">Home</string>
-    <string name="detail_fragment_name">Detail</string>
-
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="home_fragment_name">炎陵新闻</string>
+    <string name="detail_fragment_name">新闻详情</string>
 </resources>
