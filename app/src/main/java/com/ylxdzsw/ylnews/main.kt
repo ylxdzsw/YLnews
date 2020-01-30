@@ -112,6 +112,7 @@ class HomeFragment : Fragment() {
                                 BitmapFactory.decodeStream(URL(news.thumb).openStream())
                             } catch (e: Throwable) { null }
                         }, {
+                            // TODO: check if it is already bound to another news
                             if (it != null) {
                                 imageCache[url] = it
                                 imageView.setImageBitmap(it)
